@@ -26,7 +26,7 @@ const Feed = () => {
   const fetchPosts = async () => {
     const response = await fetch("/api/prompt");
     const data = await response.json();
-
+    
     setPosts(data);
   };
 
@@ -37,10 +37,12 @@ const Feed = () => {
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
   };
-
+  const handleSearchSubmit = (e) =>{
+    e.preventDefault()
+  }
   return (
     <section className="feed">
-      <form className="relative w-full flex-center">
+      <form onSubmit={handleSearchSubmit} className="relative w-full flex-center">
         <input
           type="text"
           placeholder="Search for a tag or a username"
