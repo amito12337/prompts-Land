@@ -40,14 +40,10 @@ const Feed = () => {
   };
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    posts.map((post)=>{
-      if(post.prompt.includes(searchText)) {
-        if(post) {
-          setPosts(post)
-        }
-        console.log(post)
-      }
-    })
+    // filter posts with search text
+    const filteredPosts = posts.filter((post) => post.prompt.includes(searchText));
+  // Update the state with the filtered posts
+  setPosts(filteredPosts);
   };
   return (
     <section className="feed">
