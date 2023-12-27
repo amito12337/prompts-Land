@@ -28,7 +28,6 @@ const Feed = () => {
        cache:"no-store"
     });
     const data = await response.json();
-
     setPosts(data);
   };
 
@@ -41,6 +40,14 @@ const Feed = () => {
   };
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    posts.map((post)=>{
+      if(post.prompt.includes(searchText)) {
+        if(post) {
+          setPosts(post)
+        }
+        console.log(post)
+      }
+    })
   };
   return (
     <section className="feed">
