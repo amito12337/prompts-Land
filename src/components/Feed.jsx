@@ -25,7 +25,7 @@ const Feed = () => {
 
   const fetchPosts = async () => {
     const response = await fetch("/api/prompt", {
-      next: { cache: "no-store" },
+       cache: 'force-cache' 
     });
     const data = await response.json();
 
