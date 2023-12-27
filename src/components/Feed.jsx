@@ -24,9 +24,9 @@ const Feed = () => {
   const [searchText, setSearchText] = useState("");
 
   const fetchPosts = async () => {
-    const response = await fetch("/api/prompt");
+    const response = await fetch("/api/prompt", { next: { revalidate: 3600 } });
     const data = await response.json();
-    
+
     setPosts(data);
   };
 
@@ -37,12 +37,14 @@ const Feed = () => {
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
   };
-  const handleSearchSubmit = (e) =>{
-    e.preventDefault()
-  }
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <section className="feed">
-      <form onSubmit={handleSearchSubmit} className="relative w-full flex-center">
+      <form
+        onSubmit={handleSearchSubmit}
+        className="relative w-full flex-center">
         <input
           type="text"
           placeholder="Search for a tag or a username"
@@ -52,7 +54,7 @@ const Feed = () => {
           className="search_input peer"
         />
       </form>
-        <PromptCardList data={posts} handleTagClick={()=>{}} />
+      <PromptCardList data={posts} handleTagClick={() => {}} />
     </section>
   );
 };
