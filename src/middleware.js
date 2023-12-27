@@ -1,3 +1,3 @@
 export { default } from "next-auth/middleware";
 
-export const config = { matcher: ["/create-prompt","/profile"] };
+export const config = { matcher: ["/profile","/create-prompt"] };
