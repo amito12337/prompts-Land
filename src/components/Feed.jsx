@@ -38,23 +38,34 @@ const Feed = () => {
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
-    
-    // filter posts with search text
-    const filteredPosts = prevPosts.filter((post) => post.prompt.includes(searchText));
+  };
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+        // filter posts with search text
+    const filteredPosts = prevPosts.filter(
+      (post) =>
+        post.prompt.includes(searchText) ||
+        post.tag.includes(searchText) 
+    );
     // Update the state with the filtered posts
     filteredPosts ? setPosts(filteredPosts) : setPosts(prevPosts)
-  };
-  
+  }
+  const handleRemove = () => {
+      if (searchText === "") {
+        setPosts(prevPosts)
+      }
+  }
   return (
     <section className="feed">
       <form
-        onSubmit={e=>e.preventDefault()}
+        onSubmit={handleSearchSubmit}
         className="relative w-full flex-center">
         <input
           type="text"
           placeholder="Search for a tag or a username"
           value={searchText}
           onChange={handleSearchChange}
+          onKeyUp={handleRemove}
           className="search_input peer"
         />
       </form>
