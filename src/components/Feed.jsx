@@ -20,7 +20,7 @@ const PromptCardList = ({ data, handleTagClick }) => {
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
-
+  const [prevPosts,setPrevPosts] = useState([])
   const [searchText, setSearchText] = useState("");
 
   const fetchPosts = async () => {
@@ -28,6 +28,7 @@ const Feed = () => {
        cache:"no-store"
     });
     const data = await response.json();
+    setPrevPosts(data)
     setPosts(data);
   };
 
@@ -37,14 +38,13 @@ const Feed = () => {
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
-  };
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
+    
     // filter posts with search text
-    const filteredPosts = posts.filter((post) => post.prompt.includes(searchText));
-  // Update the state with the filtered posts
-  setPosts(filteredPosts);
+    const filteredPosts = prevPosts.filter((post) => post.prompt.includes(searchText));
+    // Update the state with the filtered posts
+    filteredPosts ? setPosts(filteredPosts) : setPosts(prevPosts)
   };
+  
   return (
     <section className="feed">
       <form
@@ -55,7 +55,6 @@ const Feed = () => {
           placeholder="Search for a tag or a username"
           value={searchText}
           onChange={handleSearchChange}
-          required
           className="search_input peer"
         />
       </form>
