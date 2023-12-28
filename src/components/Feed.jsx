@@ -45,7 +45,8 @@ const Feed = () => {
     const filteredPosts = prevPosts.filter(
       (post) =>
         post.prompt.includes(searchText) ||
-        post.tag.includes(searchText) 
+        post.tag.includes(searchText) ||
+        post.creator.username.includes(searchText)
     );
     // Update the state with the filtered posts
     filteredPosts ? setPosts(filteredPosts) : setPosts(prevPosts)
