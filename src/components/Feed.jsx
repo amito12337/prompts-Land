@@ -48,7 +48,7 @@ const Feed = () => {
   return (
     <section className="feed">
       <form
-        onSubmit={handleSearchSubmit}
+        onSubmit={e=>e.preventDefault()}
         className="relative w-full flex-center">
         <input
           type="text"
