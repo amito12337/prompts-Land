@@ -20,15 +20,15 @@ const PromptCardList = ({ data, handleTagClick }) => {
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
-  const [prevPosts,setPrevPosts] = useState([])
+  const [prevPosts, setPrevPosts] = useState([]);
   const [searchText, setSearchText] = useState("");
 
   const fetchPosts = async () => {
     const response = await fetch("/api/prompt", {
-       cache:"no-store"
+      cache: "no-store",
     });
     const data = await response.json();
-    setPrevPosts(data)
+    setPrevPosts(data);
     setPosts(data);
   };
 
@@ -38,10 +38,7 @@ const Feed = () => {
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
-  };
-  const handleSearchSubmit = (e) => {
-    e.preventDefault()
-        // filter posts with search text
+    // filter posts with search text
     const filteredPosts = prevPosts.filter(
       (post) =>
         post.prompt.includes(searchText) ||
@@ -49,17 +46,18 @@ const Feed = () => {
         post.creator.username.includes(searchText)
     );
     // Update the state with the filtered posts
-    filteredPosts ? setPosts(filteredPosts) : setPosts(prevPosts)
-  }
+    filteredPosts ? setPosts(filteredPosts) : setPosts(prevPosts);
+  };
+  const handleSearchSubmit = (e) => {};
   const handleRemove = () => {
-      if (searchText === "") {
-        setPosts(prevPosts)
-      }
-  }
+    if (searchText == "") {
+      setPosts(prevPosts);
+    }
+  };
   return (
     <section className="feed">
       <form
-        onSubmit={handleSearchSubmit}
+        onSubmit={(e) => e.preventDefault()}
         className="relative w-full flex-center">
         <input
           type="text"
@@ -70,7 +68,19 @@ const Feed = () => {
           className="search_input peer"
         />
       </form>
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      <PromptCardList
+        data={posts}
+        handleTagClick={(tag) => {
+          setSearchText(tag);
+
+          // filter posts with search text
+          const filteredPosts = prevPosts.filter((post) =>
+            post.tag.includes(tag)
+          );
+          // Update the state with the filtered posts
+          filteredPosts ? setPosts(filteredPosts) : setPosts(prevPosts);
+        }}
+      />
     </section>
   );
 };
