@@ -4,18 +4,20 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 import Profile from "@src/components/Profile";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const MyProfile = ({params}) => {
-    const [posts, setPosts] = useState([]);
-    const [creator,setCreator] = useState("")
+    const [userPosts, setUserPosts] = useState([]);
+    const router = useRouter()
+    const {data:session} = useSession()
+    const searchParams = useSearchParams();
+    const userName = searchParams.get("name");
     const {id} = params
-
+    if(session?.user.id == id) router.push("/profile")
     const fetchposts = async () => {
       const response = await fetch(`/api/users/${id}/posts`);
       const data = await response.json();
-      setPosts(data);
-      setCreator(data[0])
-      console.log(data[0].creator.username)
+      setUserPosts(data);
     };
   useEffect(() => {
      fetchposts();
@@ -24,9 +26,9 @@ const MyProfile = ({params}) => {
 
   return (
     <Profile
-      name={creator.creator.username}
-      desc={`Welcome to ${creator.creator.username} profile page. Share your exceptional prompts and inspire others with the power of your imagination`}
-      data={posts}
+      name={userName}
+      desc={`Welcome to ${userName}'s personalized profile page. Explore ${userName}'s exceptional prompts and be inspired by the power of their imagination`}
+      data={userPosts}
       handleEdit={() => {}}
       handleDelete={() => {}}
     />

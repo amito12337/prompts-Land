@@ -22,7 +22,7 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
-        <Link href={`/profile/${post.creator._id == session?.user?.id ? "" : post.creator._id}`}>
+        <Link href={`/profile/${post.creator._id == session?.user?.id ? "" : `${post.creator._id}?name=${post.creator.username}`}`}>
           <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
             <Image
               src={post.creator.image}
