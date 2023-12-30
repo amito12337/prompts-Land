@@ -6,30 +6,27 @@ import { useEffect, useState } from "react";
 import Profile from "@src/components/Profile";
 
 const MyProfile = ({params}) => {
-    const [myPosts, setMyPosts] = useState([]);
-    const [craetor,setCreator] = useState("")
+    const [posts, setPosts] = useState([]);
+    const [creator,setCreator] = useState("")
     const {id} = params
 
-    const fetchPosts = async () => {
+    const fetchposts = async () => {
       const response = await fetch(`/api/users/${id}/posts`);
       const data = await response.json();
-      setMyPosts(data);
+      setPosts(data);
+      setCreator(data[0])
+      console.log(data[0].creator.username)
     };
-    const getCreator = async () => {
-        const res = await fetch(`/api/users/${id}`)
-        const data = await res.json()
-        setCreator(data)
-    }
-
   useEffect(() => {
-     fetchPosts();
+     fetchposts();
+
   }, []);
 
   return (
     <Profile
-      name={craetor.username}
-      desc={`Welcome to ${craetor.username} profile page. Share your exceptional prompts and inspire others with the power of your imagination`}
-      data={myPosts}
+      name={creator.creator.username}
+      desc={`Welcome to ${creator.creator.username} profile page. Share your exceptional prompts and inspire others with the power of your imagination`}
+      data={posts}
       handleEdit={() => {}}
       handleDelete={() => {}}
     />

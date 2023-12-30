@@ -22,10 +22,10 @@ function Nav() {
       <Link href={"/"} className="flex gap-2 flex-center">
         <Image
           alt="prompts land logo"
-          width={150}
-          height={150}
-          className="object-contain"
-          src="assets/images/logo-text.svg"
+          width={50}
+          height={50}
+          className="object-contain orange-gradient"
+          src="assets/icons/ai-prompts.svg"
         />
       </Link>
       {/* Desktop Navigation */}

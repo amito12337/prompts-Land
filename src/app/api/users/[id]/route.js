@@ -5,7 +5,7 @@ export async function GET ({params}) {
     const {id} = params
     try {
         await connectToDB()
-        const user = await User.findById({id})
+        const user = await User.findById(id)
         return new Response(JSON.stringify(user),{satus:200})
     } catch (error) {
         console.log(error)
