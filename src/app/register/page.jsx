@@ -1,10 +1,22 @@
+"use client"
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 
 function Register() {
+  const [userName,setUserName] = useState("")
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
+  const userImage = "https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("username : ",userName)
+    console.log("email : ",email)
+    console.log("password : ",password)
+  }
   return (
     <>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <div className="flex-column">
           <label>Username :</label>
           <div className="inputForm">
@@ -13,6 +25,9 @@ function Register() {
               type="text"
               className="input"
               placeholder="Enter your Username"
+              onChange={e=>setUserName(e.target.value)}
+              value={userName}
+              required
             />
           </div>
         </div>
@@ -22,9 +37,12 @@ function Register() {
           <div className="inputForm">
             <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
             <input
-              type="text"
+              type="email"
               className="input"
               placeholder="Enter your Email"
+              onChange={e=>setEmail(e.target.value)}
+              value={email}
+              required
             />
           </div>
         </div>
@@ -37,6 +55,9 @@ function Register() {
               type="password"
               className="input"
               placeholder="Enter your Password"
+              onChange={e=>setPassword(e.target.value)}
+              value={password}
+              required
             />
             <svg
               viewBox="0 0 576 512"
@@ -47,13 +68,13 @@ function Register() {
           </div>
         </div>
 
-        <button className="button-submit">Log In</button>
+        <button className="button-submit" type='Submit'>Register</button>
 
         <p className="p">
           Already have an Account?<Link href={"/login"}><span className="span">Login</span></Link>
         </p>
 
-        <div class="separator">
+        <div className="separator">
           <div></div>
           <span>OR</span>
           <div></div>
@@ -100,27 +121,15 @@ function Register() {
             Google
           </button>
 
-          <button className="btn apple">
+          <button className="btn github">
             <svg
-              version="1.1"
-              height="20"
-              width="20"
-              id="Capa_1"
               xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              x="0px"
-              y="0px"
-              viewBox="0 0 22.773 22.773"
-              style={{ enableBackground: "new 0 0 22.773 22.773" }}
-              xmlSpace="preserve">
-              <g>
-                <g>
-                  <path d="M15.769,0c0.053,0,0.106,0,0.162,0c0.13,1.606-0.483,2.806-1.228,3.675c-0.731,0.863-1.732,1.7-3.351,1.573 c-0.108-1.583,0.506-2.694,1.25-3.561C13.292,0.879,14.557,0.16,15.769,0z"></path>
-                  <path d="M20.67,16.716c0,0.016,0,0.03,0,0.045c-0.455,1.378-1.104,2.559-1.896,3.655c-0.723,0.995-1.609,2.334-3.191,2.334 c-1.367,0-2.275-0.879-3.676-0.903c-1.482-0.024-2.297,0.735-3.652,0.926c-0.155,0-0.31,0-0.462,0 c-0.995-0.144-1.798-0.932-2.383-1.642c-1.725-2.098-3.058-4.808-3.306-8.276c0-0.34,0-0.679,0-1.019 c0.105-2.482,1.311-4.5,2.914-5.478c0.846-0.52,2.009-0.963,3.304-0.765c0.555,0.086,1.122,0.276,1.619,0.464 c0.471,0.181,1.06,0.502,1.618,0.485c0.378-0.011,0.754-0.208,1.135-0.347c1.116-0.403,2.21-0.865,3.652-0.648 c1.733,0.262,2.963,1.032,3.723,2.22c-1.466,0.933-2.625,2.339-2.427,4.74C17.818,14.688,19.086,15.964,20.67,16.716z"></path>
-                </g>
-              </g>
+              height="16"
+              width="15.5"
+              viewBox="0 0 496 512">
+              <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
             </svg>
-            Apple
+            Github
           </button>
         </div>
       </form>
