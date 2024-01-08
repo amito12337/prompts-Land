@@ -1,22 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-import PromptCard from "./PromptCard";
-
-const PromptCardList = ({ data, handleTagClick }) => {
-  return (
-    <div className="mt-16 prompt_layout">
-      {data.map((post) => (
-        <PromptCard
-          key={post._id}
-          post={post}
-          handleTagClick={handleTagClick}
-        />
-      ))}
-    </div>
-  );
-};
+import PromptCardList from "./PromptCardList"
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
@@ -36,8 +21,7 @@ const Feed = () => {
     fetchPosts();
   }, []);
 
-  const handleSearchChange = (e) => {
-    setSearchText(e.target.value);
+  const handleSearchResults = ()=>{
     // filter posts with search text
     const filteredPosts = prevPosts.filter(
       (post) =>
@@ -47,13 +31,14 @@ const Feed = () => {
     );
     // Update the state with the filtered posts
     filteredPosts ? setPosts(filteredPosts) : setPosts(prevPosts);
-  };
-  const handleSearchSubmit = (e) => {};
-  const handleRemove = () => {
-    if (searchText == "") {
-      setPosts(prevPosts);
+  }
+
+  useEffect(()=>{
+    if(searchText == "") {
+      setPosts(prevPosts)
     }
-  };
+    handleSearchResults()
+  },[searchText])
   return (
     <section className="feed">
       <form
@@ -63,23 +48,13 @@ const Feed = () => {
           type="text"
           placeholder="Search for a tag or a username"
           value={searchText}
-          onChange={handleSearchChange}
-          onKeyUp={handleRemove}
+          onChange={e=> setSearchText(e.target.value) }
           className="search_input peer"
         />
       </form>
       <PromptCardList
         data={posts}
-        handleTagClick={(tag) => {
-          setSearchText(tag);
-
-          // filter posts with search text
-          const filteredPosts = prevPosts.filter((post) =>
-            post.tag.includes(tag)
-          );
-          // Update the state with the filtered posts
-          filteredPosts ? setPosts(filteredPosts) : setPosts(prevPosts);
-        }}
+        handleTagClick={tag => setSearchText(tag)}
       />
     </section>
   );
