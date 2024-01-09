@@ -1,4 +1,5 @@
 "use client"
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
@@ -81,7 +82,7 @@ function Register() {
         </div>
 
         <div className="flex gap-4">
-          <button className="btn google">
+          <button className="btn google" onClick={()=>{signIn("google");}}>
             <svg
               version="1.1"
               width="20"
